@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
 function App() {
+  const onDragOver = (e) => {
+    e.preventDefault(); //onDrop 이벤트가 정상동작 하도록 함
+  }
+  const onDrop = (e) => {
+    e.preventDefault(); //이 부분이 없으면 파일을 그냥 브라우저에 띄워버림
+    let data = e.dataTransfer;
+    let file = data.items[0].getAsFile(); // File API 사용
+    alert(file.name);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Drag and Drop Practice</h1>
+      <div className="dropZone" onDragOver={onDragOver} onDrop={onDrop}/>
     </div>
   );
 }
